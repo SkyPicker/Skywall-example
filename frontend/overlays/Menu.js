@@ -1,0 +1,20 @@
+import React from 'react'
+import {Nav, NavItem} from 'react-bootstrap'
+import {LinkContainer} from 'react-router-bootstrap'
+import {MenuComponent} from 'skywall/frontend/components/Menu'
+import {registerOverlay} from 'skywall/frontend/utils/overlays'
+import {findElements, appendChildren} from 'skywall/frontend/utils/traverse'
+import * as routes from '../constants/routes'
+
+
+registerOverlay(MenuComponent, (rendered) => {
+  let res = rendered
+  res = findElements(res, [Nav], (node) => {
+    return appendChildren(node, [
+      <LinkContainer key="example" to={routes.EXAMPLE}>
+        <NavItem>Example</NavItem>
+      </LinkContainer>,
+    ])
+  })
+  return res
+})
